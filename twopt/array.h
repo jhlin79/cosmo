@@ -4,7 +4,9 @@ class array{
   int size;
   T* container;
 
-  array ( int s){
+  array(void);
+
+  array(int s){
     container = new T[s];
     size = s;
     //copy to container

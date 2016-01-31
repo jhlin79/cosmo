@@ -92,6 +92,6 @@ dcObj.fit_para_all()
 print "fitting parameters: ", dcObj.para
 
 for z in [0.4, 0.5, 0.6, 0.7]:
-    print "z=%.4f  quad=%.6f  fit=%.6f  percErr=%.4e"%( z, dcObj.dcIntFun(z), dcObj.dcFitFun(z), dcObj.relErr(z))
+    print "z = %.4f  quad = %.6f  fit = %.6f  percErr = %.4e"%( z, dcObj.dcIntFun(z), dcObj.dcFitFun(z), dcObj.relErr(z))
 
 dcObj.Plot()

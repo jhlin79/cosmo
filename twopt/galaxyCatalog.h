@@ -1,23 +1,18 @@
 #include "table.h"
-#include "array.h"
 #include <fstream>
 
 class galaxyCatalog {
-  table *tptr;
+  table * tptr;
   int n;
-  array<float> ra, dec, red, w, x, y, z;
-  float para[5]; //These are fitting paramters for the comovig distance.
-  para[0] = 0.55109459;
-  para[1] = 0.04424543;
-  para[2] = 0.99033654;
-  para[3] = 1.26811119;
-  para[4] = 2.27075546;
-
+  float ra[10], dec[10], red[10], w[10], x[10], y[10], z[10];
+  float DH, para[5]; //These are fitting paramters for the comovig distance.
+  char redChar[20], wChar[20], raChar[20], decChar[20];
 
  public:
-  galaxyCatalog(table *, char *);
-  void red2Comoving(void);
-  void ang2Car(void);
-  int save(fstream *);
-  
+  galaxyCatalog(char *, char *);
+  void read(const int&);
+  void red2Comoving();
+  void ang2Car();
+  void save(std::ofstream &);
+  ~galaxyCatalog();
 };

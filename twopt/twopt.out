@@ -1,0 +1,9 @@
+Reader started
+job001 : Processing D=/global/homes/c/chienhao/data/galaxy_DR10v8_CMASS_North.xyzw and D=/global/homes/c/chienhao/data/random1_DR10v8_CMASS_North.xyzw to /global/homes/c/chienhao/cosmo/twopt/res/DR10_CMASS_North-{norm,DD,DR,RR}.dat .....
+job001 : Data read in.....
+job001 : Data shuffled....
+job001 : Elapsed time after collecting data (in sec): 82
+job001 : Elapsed time after building trees (in sec): 83
+job001 : Elapsed time after DD (in sec): 83
+job001 : Elapsed time after DR (in sec): 88
+job001 : Elapsed time after RR (in sec): 140

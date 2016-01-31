@@ -3,6 +3,8 @@
 class table {
   int status;
   fitsfile *fptr;
+
+
 public:
   table(char *fn) {fits_open_table(&fptr, fn, READWRITE, &status); status=0;}
   long get_num_rows();

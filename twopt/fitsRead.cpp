@@ -1,27 +1,18 @@
-#include <string.h>
-#include <stdio.h>
-#include "fitsio.h"
-#include "table.h"
 #include <fstream>
+#include "galaxyCatalog.h"
+#include <iostream>
 using namespace std;
 
-int main(int argc, char *argv[])
+int main(int argc, char * argv[])
 {
+  char expr[] = "Z > 0.43 && Z < 0.7 && WEIGHT_FKP>0";
   ofstream fout;
-  table galTable(argv[1]);
-  float z[10];
-  char zChar[]="Z";
-  int id;
-
-  fout.open("test.txt");
-  id = galTable.get_colnum(zChar);
-  galTable.read(zChar, z, 1, 10);
-
-  fout << z[1] << " " << z[2] << " " << z[3];
+  fout.open(argv[2]);
+  galaxyCatalog cmass(argv[1], expr);
+  fout.precision(8);
+  cmass.save(fout);
+  fout.flush();
   fout.close();
-  galTable.close();
-
-  if (galTable.stat())
-    fits_report_error(stderr, galTable.stat());
-  return(galTable.stat());
+ 
+  return 0;
 }

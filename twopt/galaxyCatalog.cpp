@@ -3,7 +3,6 @@
 #include <string.h>
 #define PI 3.14159265
 
-
 galaxyCatalog::galaxyCatalog(char *fn, char *expr){
   //These parameters are for Om=0.274.
   para[0] = 0.55109459;
@@ -46,8 +45,7 @@ void galaxyCatalog::ang2Car(){
     z[0] = red[0] * sinDec;
     x[0] = red[0] * cosDec * cosRa;
     y[0] = red[0] * cosDec * sinRa;
- 
-}
+ }
  
 void galaxyCatalog::red2Comoving(){
   float zi;
@@ -62,8 +60,6 @@ void galaxyCatalog::save(std::ofstream &fout){
     red2Comoving();
     ang2Car();
     fout << x[0] << " " << y[0] << " " << z[0] << " " << w[0] << std::endl;
-    
-  
   }
 }
 

@@ -1,5 +1,5 @@
 #!/bin/bash -l
-#SBATCH -p debug
+#SBATCH -p regular
 #SBATCH -N 64
 #SBATCH -t 00:30:00
 #SBATCH -J corr_north

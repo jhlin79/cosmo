@@ -1,9 +1,9 @@
 Reader started
-job001 : Processing D=/global/homes/c/chienhao/data/galaxy_DR11v1_CMASS_North.xyzw and D=/global/homes/c/chienhao/data/random0_DR11v1_CMASS_North.xyzw to /global/homes/c/chienhao/cosmo/twopt/res/DR11_CMASS_North-{norm,DD,DR,RR}.dat .....
+job001 : Processing D=/global/homes/c/chienhao/data/galaxy_DR10v8_CMASS_North.xyzw and D=/global/homes/c/chienhao/data/random2_DR10v8_CMASS_North.xyzw to /global/homes/c/chienhao/cosmo/twopt/res/DR10_CMASS_North2-{norm,DD,DR,RR}.dat .....
 job001 : Data read in.....
 job001 : Data shuffled....
-job001 : Elapsed time after collecting data (in sec): 51
-job001 : Elapsed time after building trees (in sec): 51
-job001 : Elapsed time after DD (in sec): 52
-job001 : Elapsed time after DR (in sec): 60
-job001 : Elapsed time after RR (in sec): 149
+job001 : Elapsed time after collecting data (in sec): 38
+job001 : Elapsed time after building trees (in sec): 38
+job001 : Elapsed time after DD (in sec): 39
+job001 : Elapsed time after DR (in sec): 44
+job001 : Elapsed time after RR (in sec): 102

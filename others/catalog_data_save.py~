@@ -12,14 +12,14 @@ def proper_distance(z):
 
 cosmo = FlatLambdaCDM(H0=70, Om0=0.274, Ob0=0.0457)
 fn = '~/Desktop/BAO/data/galaxy_DR10v8_CMASS_North.fits'
-fn_out = '/Users/jh/Desktop/BAO/data/cata_test0.txt'
+fn_out = '/Users/jh/Desktop/BAO/data/cata_test4.txt'
 fn_rand = '~/Desktop/BAO/data/random1_DR10v8_CMASS_North.fits' 
-fn_rand_out = '/Users/jh/Desktop/BAO/data/rand_test0.txt'
+fn_rand_out = '/Users/jh/Desktop/BAO/data/rand_test4.txt'
 bin_min = 29
 bin_max = 200.0
 nbins = 22
 ndata =  1000000
-ndataR = 10
+ndataR = 2000000
 
 fits = fitsio.FITS(fn)
 fits_rand = fitsio.FITS(fn_rand)
@@ -30,7 +30,7 @@ fout_rand = open(fn_rand_out, 'w')
 
 wd = fits[1].where("Z > 0.43 && Z < 0.7 && WEIGHT_SYSTOT >0")
 sel = np.arange(len(wd))
-#np.random.shuffle(sel)
+np.random.shuffle(sel)
 data = fits[1][wd]##[sel[:min(ndata, len(wd))]]
 
 wr = fits_rand[1].where(" Z > 0.43 && Z < 0.7")

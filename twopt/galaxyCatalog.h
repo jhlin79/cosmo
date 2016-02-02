@@ -14,5 +14,6 @@ class galaxyCatalog {
   void red2Comoving();
   void ang2Car();
   void save(std::ofstream &);
+  void save(std::ofstream &, const int &);
   ~galaxyCatalog();
 };

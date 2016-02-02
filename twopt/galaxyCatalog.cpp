@@ -63,6 +63,15 @@ void galaxyCatalog::save(std::ofstream &fout){
   }
 }
 
+void galaxyCatalog::save(std::ofstream &fout, const int & nmax){
+  for (int row=1; row<nmax; row++){
+    read(row);
+    red2Comoving();
+    ang2Car();
+    fout << x[0] << " " << y[0] << " " << z[0] << " " << w[0] << std::endl;
+  }
+}
+
 galaxyCatalog::~galaxyCatalog(){
   delete[] tptr;
 }

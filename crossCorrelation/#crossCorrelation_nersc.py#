@@ -62,6 +62,7 @@ maskPS = hp.read_map(fmapMaskPS, field=5).astype(bool) ##field=5 for F857
 fig = plt.figure()
 maskFields = [0,1,2]
 for f in maskFields:
+    plt.title('Planck 857 GHz')
     maskPlane = hp.read_map(fmapMaskPlane, field=f).astype(bool) ##field: 20% 40% 60% 70% 80%
     mask = np.logical_and(maskPS, maskPlane)
     planck857Masked = hp.ma(planck857)

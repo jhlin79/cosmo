@@ -43,41 +43,38 @@ for i in xrange(len(galMap)):
     else:
         galMap_Npix+=1
 
-countMean = galMap_Ngal/galMap_Npix
+countMean = float(galMap_Ngal)/galMap_Npix
 
 for i in xrange(len(galMap)):
     if galMap[i] != hp.UNSEEN:
         galMap[i] = (galMap[i] - countMean)/countMean
+print countMean
 
-
-#hp.mollview(galMap, rot=(180,0,0))
-#plt.show()
+hp.mollview(galMap, rot=(180,0,0))
+plt.show()
 
 ######################################                                                                                                                                           
 ##           Planck Map             ##                                                                                                                                           
 ######################################                                                                                                                                           
 
-planck857 = hp.read_map(fmap[mapFreq])
+planckmap = hp.read_map(fmap[mapFreq])
 maskPS = hp.read_map(fmapMaskPS, field=pcField[mapFreq]).astype(bool) ##field=5 for F857
-maskFields = [0,1,2]
-#maskFields = [3,4,5]
-for i in xrange(len(maskFields)):
-    f = maskFields[i]
-    maskPlane = hp.read_map(fmapMaskPlane, field=f).astype(bool) ##field: 20% 40% 60% 70% 80%
-    mask = np.logical_and(maskPS, maskPlane)
-    planck857Masked = hp.ma(planck857)
-    planck857Masked.mask = np.logical_not(mask)
-    hp.mollview(planck857Masked, sub=(len(maskFields),2,2*i+1), title="")
+maskField = 0
+maskPlane = hp.read_map(fmapMaskPlane, field=maskField).astype(bool) ##field: 20% 40% 60% 70% 80%
+mask = np.logical_and(maskPS, maskPlane)
+planckmapMasked = hp.ma(planckmap)
+planckmapMasked.mask = np.logical_not(mask)
+hp.mollview(planckmapMasked, sub=(1,2,1), title="")
 
 #######################################                                                                                                                                          
 ##    Spherical Harmonics            ##
 #######################################                                                                                                                                          
-    plt.subplot(len(maskFields), 2, 2*i+2)
-    cl = hp.anafast(planck857Masked, lmax=LMAX)
-    ell = np.arange(len(cl))
-    plt.plot(ell, ell*(ell+1)*cl)
-    plt.xlabel('$l$')
-    plt.ylabel('$l(l+1) C_l$')
+plt.subplot(1, 2, 2)
+cl = hp.anafast(planckmapMasked, lmax=LMAX)
+ell = np.arange(len(cl))
+plt.plot(ell, ell*(ell+1)*cl)
+plt.xlabel('$l$')
+plt.ylabel('$l(l+1) C_l$')
 
 
 plt.show()
@@ -94,12 +91,12 @@ plt.title('CMASS North dr12 auto-power spectrum')
 plt.show()
 
 
-#clCross = hp.anafast(planck857Masked, galMap, lmax = LMAX)
-#ellCross = np.arange(len(clCross))
-#plt.plot(ellCross, clCross)
-##plt.xscale('log')
-##plt.yscale('log')
-#plt.xlabel('$l$')
-#plt.ylabel('$C_l$')
-#plt.title('CMASS North dr12 and Planck 857 GHz cross-power spectrum')
-#plt.show()
+clCross = hp.anafast(planckmapMasked, galMap, lmax = LMAX)
+ellCross = np.arange(len(clCross))
+plt.plot(ellCross, ellCross*(ellCross+1)*clCross)
+#plt.xscale('log')
+#plt.yscale('log')
+plt.xlabel('$l$')
+plt.ylabel('$l(l+1)C_l$')
+plt.title('CMASS North dr12 and Planck %i GHz cross-power spectrum'%(mapFreq))
+plt.show()

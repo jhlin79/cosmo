@@ -12,7 +12,7 @@ fmap ={ 857:'/global/homes/c/chienhao//data/Planck/HFI_SkyMap_857_2048_R2.02_ful
 pcField = {353:3, 545:4, 857:5}
 fmapMaskPlane = '/global/homes/c/chienhao/data/Planck/HFI_Mask_GalPlane-apo0_2048_R2.00.fits'
 fmapMaskPS = '/global/homes/c/chienhao/data/Planck/HFI_Mask_PointSrc_2048_R2.00.fits'
-NSIDE = 512
+NSIDE = 256
 LMAX = 512
 mapFreq = 353
 #####################################                                                                                                                                            
@@ -87,6 +87,7 @@ plt.yscale('log')
 plt.xscale('log')
 plt.xlabel('$l$')
 plt.ylabel('$C_l$')
+plt.ylim([10**-7, 10**-3])
 plt.title('CMASS North dr12 auto-power spectrum')
 plt.show()
 

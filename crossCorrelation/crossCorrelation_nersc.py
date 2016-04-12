@@ -8,18 +8,18 @@ import matplotlib.pyplot as plt
 ##            Constants            ##
 #####################################
 fgal =  '/global/homes/c/chienhao/data/CMASS/galaxy_DR12v5_CMASS_North.fits'
-fmap ='/global/homes/c/chienhao//data/Planck/HFI_SkyMap_857_2048_R2.02_full.fits'
-fmapMaskPlane = '/global/homes/c/chienhao/data/Planck/HFI_Mask_GalPlane-apo2_2048_R2.00.fits'
+fmap ={ 857:'/global/homes/c/chienhao//data/Planck/HFI_SkyMap_857_2048_R2.02_full.fits', 545:'/global/homes/c/chienhao//data/Planck/HFI_SkyMap_545_2048_R2.02_full.fits', 353:'/global/homes/c/chienhao//data/Planck/HFI_SkyMap_353_2048_R2.02_full.fits'}
+pcField = {353:3, 545:4, 857:5}
+fmapMaskPlane = '/global/homes/c/chienhao/data/Planck/HFI_Mask_GalPlane-apo0_2048_R2.00.fits'
 fmapMaskPS = '/global/homes/c/chienhao/data/Planck/HFI_Mask_PointSrc_2048_R2.00.fits'
 NSIDE = 512
 LMAX = 512
-
+mapFreq = 353
 #####################################                                                                                                                                            
 ##           Galaxies              ##                                                                                                                                            
 #####################################                                                                                                                                            
  
 fits = fitsio.FITS(fgal)
-#wd = fits[1].where("Z > 0.43 && Z < 0.7 && WEIGHT_SYSTOT >0")
 wd = fits[1].where("Z>0")
 sel = np.arange(len(wd))
 data = fits[1][wd]
@@ -50,28 +50,29 @@ for i in xrange(len(galMap)):
         galMap[i] = (galMap[i] - countMean)/countMean
 
 
-hp.mollview(galMap, rot=(180,0,0))
-plt.show()
+#hp.mollview(galMap, rot=(180,0,0))
+#plt.show()
 
 ######################################                                                                                                                                           
 ##           Planck Map             ##                                                                                                                                           
 ######################################                                                                                                                                           
 
-planck857 = hp.read_map(fmap)
-maskPS = hp.read_map(fmapMaskPS, field=5).astype(bool) ##field=5 for F857
-fig = plt.figure()
+planck857 = hp.read_map(fmap[mapFreq])
+maskPS = hp.read_map(fmapMaskPS, field=pcField[mapFreq]).astype(bool) ##field=5 for F857
 maskFields = [0,1,2]
-for f in maskFields:
+#maskFields = [3,4,5]
+for i in xrange(len(maskFields)):
+    f = maskFields[i]
     maskPlane = hp.read_map(fmapMaskPlane, field=f).astype(bool) ##field: 20% 40% 60% 70% 80%
     mask = np.logical_and(maskPS, maskPlane)
     planck857Masked = hp.ma(planck857)
     planck857Masked.mask = np.logical_not(mask)
-    hp.mollview(planck857Masked, sub=(len(maskFields),2,2*f+1), title="")
+    hp.mollview(planck857Masked, sub=(len(maskFields),2,2*i+1), title="")
 
 #######################################                                                                                                                                          
 ##    Spherical Harmonics            ##
 #######################################                                                                                                                                          
-    plt.subplot(len(maskFields), 2, 2*f+2)
+    plt.subplot(len(maskFields), 2, 2*i+2)
     cl = hp.anafast(planck857Masked, lmax=LMAX)
     ell = np.arange(len(cl))
     plt.plot(ell, ell*(ell+1)*cl)

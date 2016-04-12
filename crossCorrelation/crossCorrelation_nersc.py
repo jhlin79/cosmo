@@ -14,7 +14,7 @@ fmapMaskPlane = '/global/homes/c/chienhao/data/Planck/HFI_Mask_GalPlane-apo0_204
 fmapMaskPS = '/global/homes/c/chienhao/data/Planck/HFI_Mask_PointSrc_2048_R2.00.fits'
 NSIDE = 256
 LMAX = 512
-mapFreq = 353
+mapFreq = 857
 #####################################                                                                                                                                            
 ##           Galaxies              ##                                                                                                                                            
 #####################################                                                                                                                                            
@@ -92,7 +92,7 @@ plt.title('CMASS North dr12 auto-power spectrum')
 plt.show()
 
 
-clCross = hp.anafast(planckmapMasked, galMap, lmax = LMAX)
+clCross = hp.anafast(galMap, hp.remove_monopole(planckmapMasked), lmax = LMAX)
 ellCross = np.arange(len(clCross))
 plt.plot(ellCross, ellCross*(ellCross+1)*clCross)
 #plt.xscale('log')

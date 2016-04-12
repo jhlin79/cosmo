@@ -6,9 +6,6 @@ from mpl_toolkits.mplot3d import Axes3D
 from astropy.cosmology import FlatLambdaCDM
 
 
-def proper_distance(z):
-    return cosmo.comoving_distance(z) / (1+z)
-
 
 cosmo = FlatLambdaCDM(H0=70, Om0=0.274, Ob0=0.0457)
 fn = '~/Desktop/BAO/data/galaxy_DR10v8_CMASS_North.fits'
@@ -38,8 +35,8 @@ sel = np.arange(len(wr))
 np.random.shuffle(sel)
 data_R = fits_rand[1][wr]##[sel[:min(ndataR, len(wr))]]
 
-xyz = cor.ra_dec_to_xyz(data['RA'], data['DEC'])* proper_distance(data['Z']).value
-xyz_rand = cor.ra_dec_to_xyz(data_R['RA'], data_R['DEC'])* proper_distance(data_R['Z']).value
+xyz = cor.ra_dec_to_xyz(data['RA'], data['DEC'])* cosmo.comoving_distance(data['Z']).value
+xyz_rand = cor.ra_dec_to_xyz(data_R['RA'], data_R['DEC'])* cosmo.comoving_distance(data_R['Z']).value
 
 for i in xrange(len(wd)):
     fout.write("%.10f %.10f %.10f \n"%(xyz[0,i], xyz[1,i], xyz[2,i]))
